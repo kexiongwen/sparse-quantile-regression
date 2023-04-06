@@ -121,7 +121,7 @@ The constant $C$ and $C^{\prime}$ absorbs all the summands that do not depend on
 
 
 
-Therefore, at iteration $m+1$, we need to solve the penalized weight least square problem: 
+Therefore, at iteration $m+1$, we need to solve the penalized weight least square problem for the Q function: 
 
 
 
@@ -137,7 +137,7 @@ by using the coordinate descent algorithm from our paper https://arxiv.org/pdf/2
 
 One potential probem is that the EM algorithm is very sensitive to the intial value becase $\Lambda_{ii}^{(m)}=\frac{1}{4|y_{i}-x_{i}^{T}\beta^{(m)}|}$. A small $|y_{i}-x_{i}'\beta^{(m)}|$ will lead to a large weight given to $(x_{i},y_{i})$. Especially when the dimensional of the model is large, lots of the weight could be large due to the overfitting. These will reduce the effect of sparse penalty. 
 
- A heuristic approaches to solve this issue are to set a upper bound to the weight such that
+ A heuristic approache to solve this issue are to set a upper bound to the weight such that
 
 
 
@@ -147,4 +147,41 @@ $$
 
 
 
-and use $\beta^{(0)}=0$ as initialization.
+and use $\beta^{(0)}=0$ as initialization. Another approache is to add $\epsilon$ in the denominator
+
+
+$$
+\Lambda^{(m)}=\mathrm{Diag}\left(\frac{1}{\epsilon+4|y_{i}-x_{i}^{T}\beta^{(m)}|}\right)
+$$
+In this case, the first term of the Q function is equivalent to the surrogate function of the MM algorithm for quantile regression from https://www.tandfonline.com/doi/epdf/10.1080/10618600.2000.10474866?needAccess=true. In practice, we didn't find any difference between these two approaches.
+
+
+
+## Reference
+
+```
+@article{hunter2000quantile,
+  title={Quantile regression via an MM algorithm},
+  author={Hunter, David R and Lange, Kenneth},
+  journal={Journal of Computational and Graphical Statistics},
+  volume={9},
+  number={1},
+  pages={60--77},
+  year={2000},
+  publisher={Taylor \& Francis}
+}
+```
+
+```
+@article{ke2021bayesian,
+  title={Bayesian $ L_\frac{1}{2}$ regression},
+  author={Ke, Xiongwen and Fan, Yanan},
+  journal={arXiv preprint arXiv:2108.03464},
+  year={2021}
+}
+```
+
+
+
+
+
