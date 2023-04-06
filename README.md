@@ -55,12 +55,15 @@ $$
 $$
 
 
+
 We consider a full Bayesian formulation of the exponential power prior, which introduces a non-separable bridge (NSB) penalty
+
 
 
 $$
 \operatorname{pen}(\beta)=-\log \int \prod_{j=1}^{P} \pi\left(\beta_j \mid \lambda\right) \pi(\lambda) d \lambda=(2^{\gamma}p+0.5)\log\left(\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2^{\gamma}}}+1/b\right)
 $$
+
 
 
 with the hyper-parameter $\lambda$ being integrated out.
@@ -77,6 +80,7 @@ $$
 $$
 
 
+
 This is equivalent to finding the mode of the posterior of the $\beta$.
 $$
 \arg \max_{\beta}\log \pi(\beta \mid Y)
@@ -89,7 +93,9 @@ f(Y,W \mid \beta,X) \propto \prod_{i=1}^{n}w_{i}^{-\frac{1}{2}}\exp\left\{-\frac
 $$
 
 
+
 where $\theta_{1}=\frac{1-2q}{q(1-q)}$ and $\theta_{2}=\sqrt{\frac{2}{q(1-q)}}$ . The above data augmentation strategy allows us to tackle the optimization problem with EM algorithm. By treating $W$ as the missing data, we have the following complete-data surrogate objective function:
+
 
 
 $$
@@ -102,6 +108,7 @@ Q(\beta \mid \beta^{(m)}) & =\mathrm{E}_{\pi(W \mid Y,\beta^{(m)})} \left[\log \
 $$
 
 
+
 where $\delta_{i}^{(m)}=E_{\pi(w_{i} \mid y_{i},\beta^{(m)})}[w_{i}^{-1}]=\frac{1}{q(1-q)|y_{i}-x_{i}^{T}\beta^{(m)}|}$, $T^{(m)}=Y-(1-2q)|Y-X\beta^{(m)}|$ and $\Lambda^{(m)}=\mathrm{Diag}\left(\frac{1}{4|y_{i}-x_{i}^{T}\beta^{(m)}|}\right)$.  The constant $C$ and $C^{\prime}$ absorbs all the summands that do not depend on the parameters of interest $\beta$. 
 
 
@@ -109,9 +116,11 @@ where $\delta_{i}^{(m)}=E_{\pi(w_{i} \mid y_{i},\beta^{(m)})}[w_{i}^{-1}]=\frac{
 Therefore, at iteration $m+1$, we need to solve 
 
 
+
 $$
 \beta^{(m+1)}=\arg \min_{\beta}(T^{(m)}-X\beta)^{T}\Lambda^{(m)}(T^{(m)}-X\beta)+(2p+0.5)\log\left(\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2}}+1/b\right)
 $$
+
 
 
 by using our coordinate descent algorithm.
@@ -123,9 +132,11 @@ One potential probem is that the EM algorithm is very sensitive to the intial va
  A heuristic approaches to solve this issue are to set a upper bound to the weight such that
 
 
+
 $$
 \Lambda^{(m)}=\mathrm{Diag}\left(\frac{1}{4\max(\epsilon,|y_{i}-x_{i}^{T}\beta^{(m)}|})\right)
 $$
+
 
 
 and use $\beta^{(0)}=0$ as initialization.
