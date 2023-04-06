@@ -126,7 +126,7 @@ Therefore, at iteration $m+1$, we need to solve the penalized weight least squar
 
 
 $$
-\beta^{(m+1)}=\arg \min_{\beta}(T^{(m)}-X\beta)^{T}\Lambda^{(m)}(T^{(m)}-X\beta)+(2p+0.5)\log\left(\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2}}+1/b\right)
+\beta^{(m+1)}=\arg \min_{\beta}(T^{(m)}-X\beta)^{T}\Lambda^{(m)}(T^{(m)}-X\beta)+(2^{\gamma}p+0.5)\log\left(\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2^{\gamma}}}+1/b\right)
 $$
 
 
