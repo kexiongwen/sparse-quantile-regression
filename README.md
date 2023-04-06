@@ -150,9 +150,12 @@ $$
 and use $\beta^{(0)}=0$ as initialization. Another approache is to add $\epsilon$ in the denominator
 
 
+
 $$
 \Lambda^{(m)}=\mathrm{Diag}\left(\frac{1}{\epsilon+4|y_{i}-x_{i}^{T}\beta^{(m)}|}\right)
 $$
+
+
 In this case, the first term of the Q function is equivalent to the surrogate function of the MM algorithm for quantile regression from https://www.tandfonline.com/doi/epdf/10.1080/10618600.2000.10474866?needAccess=true. In practice, we didn't find any difference between these two approaches.
 
 
