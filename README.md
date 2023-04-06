@@ -1,4 +1,4 @@
-# sparse-quantile-regression
+# Sparse Quantile Regression
 
 ##  Model setting	
 
@@ -75,6 +75,7 @@ with the hyper-parameter $\lambda$ being integrated out.
 Considering the quantile regression with non-separable bridge penalty, we have the following objective function
 
 
+
 $$
 \arg \min_{\beta}\sum_{i=1}^{n}\rho_{q}(y_{i}-x_{i}^{T}\beta)+(2^{\gamma}p+0.5)\log\left(\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2^{\gamma}}}+1/b\right)
 $$
@@ -82,11 +83,14 @@ $$
 
 
 This is equivalent to finding the mode of the posterior of the $\beta$.
+
+
 $$
 \arg \max_{\beta}\log \pi(\beta \mid Y)
 $$
-where $\pi(\beta \mid Y) \propto f(Y \mid \beta, X)\pi(\beta)$. By using the scale mixture of normal representation of the skewed Laplace likelihood,  we have
 
+
+where $\pi(\beta \mid Y) \propto f(Y \mid \beta, X)\pi(\beta)$. By using the scale mixture of normal representation of the skewed Laplace likelihood,  we have
 
 $$
 f(Y,W \mid \beta,X) \propto \prod_{i=1}^{n}w_{i}^{-\frac{1}{2}}\exp\left\{-\frac{1}{2}\sum_{i=1}^{n}\left[\frac{(y_{i}-x_{i}^{T}\beta)^{2}}{\theta_{2}^{2}w_{i}}+\frac{\theta_{1}^{2}w_{i}^{2}}{\theta_{2}^{2}}-\frac{2\theta_{1}(y_{i}-x_{i}^{T}\beta)}{\theta_{2}^{2}}\right]\right\}
@@ -101,19 +105,23 @@ where $\theta_{1}=\frac{1-2q}{q(1-q)}$ and $\theta_{2}=\sqrt{\frac{2}{q(1-q)}}$ 
 $$
 \begin{aligned}
 Q(\beta \mid \beta^{(m)}) & =\mathrm{E}_{\pi(W \mid Y,\beta^{(m)})} \left[\log \pi(\beta, W \mid Y)\right]\\
-                          & =C -\frac{1}{2\theta_{2}^{2}}\sum_{i=1}^{n}E_{\pi(w_{i} \mid y_{i},\beta^{(m)})}[w_{i}^{-1}](y_{i}-x_{i}^{T}\beta)^{2}+\frac{\theta_{1}}{\theta_{2}^{2}}\sum_{i=1}^{n}(y_{i}-x_{i}^{T}\beta)-(2p+0.5)\log\left(\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2^{\gamma}}}+1/b\right)\\
-                          & =C^{\prime}-\frac{1}{2\theta_{2}^{2}}\sum_{i=1}^{n}\delta_{i}^{(m)}\left[y_{i}-x_{i}^{T}\beta-\frac{\theta_{1}}{\delta_{i}^{(m)}}\right]^{2}-(2p+0.5)\log\left(\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2^{\gamma}}}+1/b\right)\\
+                          & =C -\frac{1}{2\theta_{2}^{2}}\sum_{i=1}^{n}E_{\pi(w_{i} \mid y_{i},\beta^{(m)})}(w_{i}^{-1})(y_{i}-x_{i}^{T}\beta)^{2}+\frac{\theta_{1}}{\theta_{2}^{2}}\sum_{i=1}^{n}(y_{i}-x_{i}^{T}\beta)-(2p+0.5)\log\left(\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2^{\gamma}}}+1/b\right)\\
+                          & =C^{\prime}-\frac{1}{2\theta_{2}^{2}}\sum_{i=1}^{n}\delta_{i}^{(m)}\left(y_{i}-x_{i}^{T}\beta-\frac{\theta_{1}}{\delta_{i}^{(m)}}\right)^{2}-(2p+0.5)\log\left(\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2^{\gamma}}}+1/b\right)\\
                           & =C^{\prime}-(T^{(m)}-X\beta)^{T}\Lambda^{(m)}(T^{(m)}-X\beta)-(2p+0.5)\log\left(\sum_{j=1}^{p}|\beta_{j}|^{\frac{1}{2^{\gamma}}}+1/b\right)
 \end{aligned}
 $$
 
 
 
-where $\delta_{i}^{(m)}=E_{\pi(w_{i} \mid y_{i},\beta^{(m)})}[w_{i}^{-1}]=\frac{1}{q(1-q)|y_{i}-x_{i}^{T}\beta^{(m)}|}$, $T^{(m)}=Y-(1-2q)|Y-X\beta^{(m)}|$ and $\Lambda^{(m)}=\mathrm{Diag}\left(\frac{1}{4|y_{i}-x_{i}^{T}\beta^{(m)}|}\right)$.  The constant $C$ and $C^{\prime}$ absorbs all the summands that do not depend on the parameters of interest $\beta$. 
+where $\delta_{i}^{(m)}=E_{\pi(w_{i} \mid y_{i},\beta^{(m)})}(w_{i}^{-1})=\frac{1}{q(1-q)|y_{i}-x_{i}^{T}\beta^{(m)}|}$, $T^{(m)}=Y-(1-2q)|Y-X\beta^{(m)}|$ and $\Lambda^{(m)}=\mathrm{Diag}\left(\frac{1}{4|y_{i}-x_{i}^{T}\beta^{(m)}|}\right)$.  
 
 
 
-Therefore, at iteration $m+1$, we need to solve 
+The constant $C$ and $C^{\prime}$ absorbs all the summands that do not depend on the parameters of interest $\beta$. 
+
+
+
+Therefore, at iteration $m+1$, we need to solve the penalized weight least square problem: 
 
 
 
@@ -123,7 +131,7 @@ $$
 
 
 
-by using our coordinate descent algorithm.
+by using the coordinate descent algorithm from our paper https://arxiv.org/pdf/2108.03464.pdf.
 
 
 
