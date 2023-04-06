@@ -142,7 +142,7 @@ One potential probem is that the EM algorithm is very sensitive to the intial va
 
 
 $$
-\Lambda^{(m)}=\mathrm{Diag}\left(\frac{1}{4\max(\epsilon,|y_{i}-x_{i}^{T}\beta^{(m)}|}\right)
+\Lambda^{(m)}=\mathrm{Diag}\left(\frac{1}{4\max(\epsilon,|y_{i}-x_{i}^{T}\beta^{(m)}|)}\right)
 $$
 
 
