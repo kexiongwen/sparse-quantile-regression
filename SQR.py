@@ -2,12 +2,13 @@ import numpy as np
 from scipy.sparse import spdiags
 from scipy import sparse
 
-def SQR(Y,X,C=1,T=10,Q=0.5):
+def SQR(Y,X,C=1,T=10,Q=0.5,s=1):
 
     N,P=np.shape(X)
     b=C*np.log(P)/P
-    C1=P+0.25
-    power=1/(2-0.5)
+    a=0.5
+    C1=(P+a/(2**s))
+    power=1/(2-0.5**s)
     beta=np.zeros((P,1))
     Z=np.ones(P)
 
@@ -35,7 +36,7 @@ def SQR(Y,X,C=1,T=10,Q=0.5):
             
             for j in range(0,P):
 
-                C2=1/b+np.sum(np.abs(beta)**0.5)-np.abs(beta[j])**0.5
+                C2=1/b+np.sum(np.abs(beta)**(0.5**s))-np.abs(beta[j])**(0.5**s)
 
                 if (j!=0) & (j!=P-1):
                     Z[j]=XTW[j:j+1,:]@(T-ink1-ink2)/XTWX[j]
@@ -57,7 +58,7 @@ def SQR(Y,X,C=1,T=10,Q=0.5):
                     while(np.abs(beta_old-beta_new)>1e-4 and k<20 and beta_new>=0):
                         
                         beta_old=np.copy(beta_new)
-                        beta_new=np.abs(Z[j])-C1/XTWX[j]/(beta_old+C2*beta_old**0.5)
+                        beta_new=np.abs(Z[j])-C1/XTWX[j]/(beta_old+C2*beta_old**(1-0.5**s))
                         k=k+1
                         
                     if k>=20 or beta_new<0:
