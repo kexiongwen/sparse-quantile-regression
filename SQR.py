@@ -2,7 +2,7 @@ import numpy as np
 from scipy.sparse import spdiags
 from scipy import sparse
 
-def SQR(Y,X,C=1,T=10,Q=0.5,s=1):
+def SQR(Y,X,C=1,iteration=10,Q=0.5,s=1):
 
     N,P=np.shape(X)
     b=C*np.log(P)/P
@@ -12,7 +12,7 @@ def SQR(Y,X,C=1,T=10,Q=0.5,s=1):
     beta=np.zeros((P,1))
     Z=np.ones(P)
 
-    for t in range(0,T):
+    for t in range(0,iteration):
 
         L1_error=np.maximum(np.abs(Y-X@beta),0.1)
         T=Y-(1-2*Q)*L1_error
