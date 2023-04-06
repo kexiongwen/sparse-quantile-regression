@@ -93,7 +93,7 @@ $$
 where $\pi(\beta \mid Y) \propto f(Y \mid \beta, X)\pi(\beta)$. By using the scale mixture of normal representation of the skewed Laplace likelihood,  we have
 
 $$
-f(Y,W \mid \beta,X) \propto \prod_{i=1}^{n}w_{i}^{-\frac{1}{2}}\exp\left\{-\frac{1}{2}\sum_{i=1}^{n}\left[\frac{(y_{i}-x_{i}^{T}\beta)^{2}}{\theta_{2}^{2}w_{i}}+\frac{\theta_{1}^{2}w_{i}^{2}}{\theta_{2}^{2}}-\frac{2\theta_{1}(y_{i}-x_{i}^{T}\beta)}{\theta_{2}^{2}}\right]\right\}
+f(Y,W \mid \beta,X) \propto \prod_{i=1}^{n}w_{i}^{-\frac{1}{2}}\exp\left\{-\frac{1}{2}\sum_{i=1}^{n}\left[\frac{(y_{i}-x_{i}'\beta)^{2}}{\theta_{2}^{2}w_{i}}+\frac{\theta_{1}^{2}w_{i}^{2}}{\theta_{2}^{2}}-\frac{2\theta_{1}(y_{i}-x_{i}'\beta)}{\theta_{2}^{2}}\right]\right\}
 $$
 
 
@@ -135,7 +135,7 @@ by using the coordinate descent algorithm from our paper https://arxiv.org/pdf/2
 
 
 
-One potential probem is that the EM algorithm is very sensitive to the intial value becase $\Lambda_{ii}^{(m)}=\frac{1}{4|y_{i}-x_{i}^{T}\beta^{(m)}|}$. A small $|y_{i}-x_{i}^{T}\beta^{(m)}| $ will lead to a large weight given to $(x_{i},y_{i})$. Especially when the dimensional of the model is large, lots of the weight could be large due to the overfitting. These will reduce the effect of sparse penalty. 
+One potential probem is that the EM algorithm is very sensitive to the intial value becase $\Lambda_{ii}^{(m)}=\frac{1}{4|y_{i}-x_{i}^{T}\beta^{(m)}|}$. A small $|y_{i}-x_{i}'\beta^{(m)}|$ will lead to a large weight given to $(x_{i},y_{i})$. Especially when the dimensional of the model is large, lots of the weight could be large due to the overfitting. These will reduce the effect of sparse penalty. 
 
  A heuristic approaches to solve this issue are to set a upper bound to the weight such that
 
