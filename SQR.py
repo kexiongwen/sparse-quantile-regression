@@ -1,6 +1,5 @@
 import numpy as np
-from scipy.sparse import spdiags
-from scipy import sparse
+
 
 def SQR(Y,X,C=1,iteration=10,Q=0.5,s=1):
 
@@ -17,10 +16,9 @@ def SQR(Y,X,C=1,iteration=10,Q=0.5,s=1):
         L1_error=np.maximum(np.abs(Y-X@beta),0.1)
         T=Y-(1-2*Q)*L1_error
 
-        W=0.25*spdiags(L1_error.squeeze()**-1,0,N,N)
+        W=0.25/L1_error    
 
-        XTW=sparse.csr_matrix.dot(W,X).T
-
+        XTW=X.T*W.T
         XTWX=(XTW*X.T).sum(-1)
 
         iter=1
