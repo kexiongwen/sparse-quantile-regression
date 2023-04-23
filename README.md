@@ -12,7 +12,7 @@ $$
 
 
 
-for $q \in (0,1)$ . Then the joint distribution of $Y=(y_{1},...,y_{n})$ given $X=(x_{1},...,x_{n})$ is
+for $q \in (0,1)$ , where $\rho_q(\epsilon)=\epsilon(q-I(\epsilon<0))$ is the quantile loss.  Then the joint distribution of $Y=(y_{1},...,y_{n})$ given $X=(x_{1},...,x_{n})$ is
 
 
 
@@ -155,10 +155,29 @@ $$
 \Lambda^{(m)}=\mathrm{Diag}\left(\frac{1}{\epsilon+4|y_{i}-x_{i}^{T}\beta^{(m)}|}\right)
 $$
 
-
 In this case, the first term of the Q function is equivalent to the surrogate function of the MM algorithm for quantile regression from https://www.tandfonline.com/doi/epdf/10.1080/10618600.2000.10474866?needAccess=true. In practice, we didn't find any difference between these two approaches.
 
 
+
+## Usage
+
+```
+from SQR import SQR
+
+beta_estimator=SQR(Y,X,Q,C,s)
+```
+
+1. $Y$ is the vector of response with length $N$. 
+
+2. $X$ is $N \times P$ covariate matrix. 
+
+3. $Q \in (0,1)$ is the quantile level.
+
+4. C control the size of hyper-parameter b as we set  $b =C \frac{\log(P)}{P}$. The default value is 0.5.  
+
+5. s is the value of $\gamma$. The default value is 3. 
+
+   
 
 ## Reference
 

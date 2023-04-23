@@ -1,5 +1,6 @@
-function[beta,sparsity]=SQR(Y,X,Q,C,s,iteration)
-
+function[beta,sparsity]=SQR(Y,X,Q,C,s)
+    
+    iteration=10;
     S=size(X);
     b=C*log(S(2))/S(2);
     a=0.5;

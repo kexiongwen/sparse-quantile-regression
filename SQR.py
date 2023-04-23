@@ -1,8 +1,9 @@
 import numpy as np
 
 
-def SQR(Y,X,C=1,iteration=10,Q=0.5,s=1):
+def SQR(Y,X,Q=0.5,C=1,s=1):
 
+    iteration=10
     N,P=np.shape(X)
     b=C*np.log(P)/P
     a=0.5
