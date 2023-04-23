@@ -175,7 +175,7 @@ beta_estimator=SQR(Y,X,Q,C,s)
 
 4. C control the size of hyper-parameter b as we set  $b =C \frac{\log(P)}{P}$. The default value is 0.5.  
 
-5. s is the value of $\gamma$. The default value is 3. 
+5. s is the value of $\gamma$. The default value is 1. 
 
    
 
